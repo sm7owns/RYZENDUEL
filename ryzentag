@@ -1,0 +1,46 @@
+-- BillboardGui nametag: ".gg/ryzenhub"
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local TAG_TEXT = ".gg/ryzenhub"
+local TAG_NAME = "RyzenHubNametag"
+
+local function AttachTag(character)
+    if not character then return end
+    local head = character:WaitForChild("Head", 8)
+    if not head then return end
+
+    local old = head:FindFirstChild(TAG_NAME)
+    if old then old:Destroy() end
+
+    local billboard = Instance.new("BillboardGui")
+    billboard.Name = TAG_NAME
+    billboard.Size = UDim2.new(0, 220, 0, 40)
+    billboard.StudsOffset = Vector3.new(0, 2.6, 0)
+    billboard.AlwaysOnTop = true
+    billboard.MaxDistance = 200
+    billboard.LightInfluence = 0
+    billboard.ResetOnSpawn = false
+    billboard.Parent = head
+
+    local label = Instance.new("TextLabel")
+    label.Name = "Text"
+    label.BackgroundTransparency = 1
+    label.Size = UDim2.new(1, 0, 1, 0)
+    label.Font = Enum.Font.GothamBlack
+    label.Text = TAG_TEXT
+    label.TextScaled = true
+    label.TextColor3 = Color3.fromRGB(255, 255, 255)
+    label.TextStrokeTransparency = 0.2
+    label.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+    label.Parent = billboard
+end
+
+if LocalPlayer.Character then
+    task.spawn(AttachTag, LocalPlayer.Character)
+end
+
+LocalPlayer.CharacterAdded:Connect(function(char)
+    task.wait(0.3)
+    AttachTag(char)
+end)
