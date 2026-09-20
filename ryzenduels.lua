@@ -1,4 +1,4 @@
--- BillboardGui nametag: ".gg/ryzenhub"
+ BillboardGui nametag: ".gg/ryzenhub"
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
